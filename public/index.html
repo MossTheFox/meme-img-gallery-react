@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <!--                                                                  ↓ 禁用缩放       -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0d0b" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#548142" />
+
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="一堆沙雕图。" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <link rel="icon" type="image/png" sizes="196x196" href="/pwa-assets/favicon-196.png">
+
+  <meta name="msapplication-square70x70logo" content="/pwa-assets/mstile-icon-128.png">
+  <meta name="msapplication-square150x150logo" content="/pwa-assets/mstile-icon-270.png">
+  <meta name="msapplication-square310x310logo" content="/pwa-assets/mstile-icon-558.png">
+  <meta name="msapplication-wide310x150logo" content="/pwa-assets/mstile-icon-558-270.png">
+
+  <link rel="apple-touch-icon" href="/pwa-assets/apple-icon-180.png">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="apple-touch-icon" href="/logo192.png" />
+
+
+  <style>
+    body {
+      background-color: #292726;
+      color: #fff;
+    }
+
+    @media (prefers-color-scheme: light) {
+      body {
+        background-color: #fff;
+        color: #000;
+      }
+    }
+  </style>
+
+  <title>SB-Image</title>
+</head>
+
+<body>
+  <noscript>
+    <p style="text-align: center; font-size: 20px; color: #fff;">
+      *需要启用 JavaScript 来渲染页面*
+    </p>
+    <div style="width: 300px; margin:0 auto; padding: 20px 0;">
+      <a target="_blank" href="https://beian.miit.gov.cn/" aria-label="备案查询页 - 苏ICP备2021006632号-1"
+        rel="noopener noreferrer" style="color:#939393; margin-left: 48px; text-decoration: none;">
+        苏ICP备2021006632号-1
+      </a>
+      <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32083002000098"
+        aria-label="公安备案查询页 - 苏公网安备32011502000024号" rel="noopener noreferrer"
+        style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+        <img alt="备案图标" src="https://tcdn.mxowl.com/beian.png" style="float:left;">
+        <p style="float:left; height:20px; line-height:20px; margin: 0px 0px 0px 10px; color:#939393;">苏公网安备
+          32083002000098号
+        </p>
+      </a>
+    </div>
+  </noscript>
+  <div id="root"></div>
+  <script>
+
+    if ('serviceWorker' in navigator) {
+      // 注册 service worker
+      window.addEventListener('load', async () => {
+        try {
+          let reg = await navigator.serviceWorker.register('/sw.js');
+          if (reg) {
+            // listen for update
+            reg.addEventListener('updatefound', () => {
+              let worker = reg.installing;
+              worker.addEventListener('statechange', () => {
+                if (worker.state === 'installed') {
+                  worker.postMessage({
+                    type: "SKIP_WAITING"
+                  });
+                  // 强制直接更新
+                }
+              });
+            });
+            // one update already installed
+            if (reg.waiting) {
+              reg.waiting.postMessage({
+                type: "SKIP_WAITING"
+              });
+            }
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+
+      // catch 'beforeinstallprompt' event
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // e.userChoice will contain the result of the user interaction.
+        // We show the install prompt at the end of the page.
+        window._PWA_PROMPT = e;
+        // Update UI notify the user they can add to home screen
+        // document.querySelector('#install-button').style.display = 'block';
+      });
+    }
+    
+    !localStorage.getItem("disableBaiduHeatmap") && (function () {
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?8530be3ab29c0221f5b7bbfdd76cd94f";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    })();
+  </script>
+</body>
+
+</html>
