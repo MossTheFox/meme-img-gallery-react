@@ -1,4 +1,4 @@
-SB Image
+SB Image (Meme Image Gallery)
 ----
 
 A Web app built to browse random meme images. Personal practice project. For fun.
@@ -8,7 +8,7 @@ Live demo: [SB-Image (app.mxowl.com)](https://app.mxowl.com/service/sb-img/)
 
 ### Intro
 
-This is a simple React single-page web app, functioned as an endless meme picture gallery. For personal practice only.
+This is a simple React single-page web app, functioned as an endless meme picture gallery. For personal practice only. Created with [create-react-app](https://create-react-app.dev/).
 
 It may contain some bad practices. Be skeptical when browsing the code.
 
