@@ -58,7 +58,7 @@ By now, this app can do the following:
 * Context structure is messy.
     * ...since it needs to work with the main app site. Also, many of the context was designed way too long ago where I haven't even finished any simple projects.
 
-### Liscence
+### License
 
 MIT
 
